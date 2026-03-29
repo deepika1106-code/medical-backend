@@ -5,22 +5,23 @@ import org.springframework.stereotype.Service;
 import com.medical.app.model.User;
 import com.medical.app.repository.UserRepository;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
     @Autowired
-    private UserRepository repo;
+    private UserRepository userRepository;
 
-    public User register(User user) {
-        return repo.save(user);
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
-    public User login(String username, String password) {
-        User user = repo.findByUsername(username);
+    public User saveUser(User user) {
+        return userRepository.save(user);
+    }
 
-        if (user != null && user.getPassword().equals(password)) {
-            return user;
-        }
-        return null;
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 }
